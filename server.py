@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, jsonify
+from flask import Flask, render_template, request, url_for, redirect, jsonify, send_from_directory
 import os, csv
 
 # Determine the directory of server.py
@@ -6,6 +6,9 @@ script_dir = os.path.dirname(__file__)
 
 # Create a relative path to database.txt
 database_path = os.path.join(script_dir, 'database.csv')
+
+# Define the directory where downloadable files are stored
+downloadable_files_dir = os.path.join(script_dir, 'CV')
 
 app = Flask(__name__)
 
@@ -16,6 +19,12 @@ def home():
 @app.route('/<string:page_name>')
 def html_page(page_name):
     return render_template(page_name)
+
+# Create a route for downloading the PDF
+@app.route('/download_pdf')
+def download_pdf():
+    pdf_filename = "Chivu-Alexandru-CV.pdf"  # The name of the PDF file
+    return send_from_directory(downloadable_files_dir, pdf_filename, as_attachment=True)
 
 @app.route('/submit_form', methods=['POST', 'GET'])
 def submit_form():
