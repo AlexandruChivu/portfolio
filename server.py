@@ -23,7 +23,7 @@ def html_page(page_name):
 # Create a route for downloading the PDF
 @app.route('/download_pdf')
 def download_pdf():
-    pdf_filename = "Chivu-Alexandru-CV.pdf"  # The name of the PDF file
+    pdf_filename = "Chivu-Alexandru.pdf"  # The name of the PDF file
     return send_from_directory(downloadable_files_dir, pdf_filename, as_attachment=True)
 
 @app.route('/submit_form', methods=['POST', 'GET'])
